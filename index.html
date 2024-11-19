@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="direct download, search, movies, music, books, images, software">
+    <meta name="description" content="Get direct download links for almost anything: TV/Movies, Books, Music, Software, and more.">
+    <title>nothing is here</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+          crossorigin="anonymous">
+    
+    <style>
+        pre {
+            margin: 1em 0;
+            text-align: center;
+        }
+        .black-background { background-color: #000000; }
+        .white { color: #ffffff; }
+        #egbutton { text-transform: capitalize; }
+        #ddbutton { display: none; } /* Hides the filetype dropdown */
+    </style>
+</head>
+<body onload="openDropdown();">
+    <!-- Desktop Header -->
+    <pre class="hidden-xs" align="center"></pre>
+
+    <!-- Mobile Header -->
+    <div align="center" class="row visible-xs">
+        <h1>Nothing Is Here</h1>
+        <hr />
+    </div>
+
+    <!-- Search Form -->
+    <div class="container">
+        <form id="searchForm" onsubmit="event.preventDefault(); startSearch();">
+            <input type="hidden" name="fileType" value="" id="fileType">
+            <input type="hidden" name="resType" value="" id="resType">
+            <input type="hidden" name="engine" value="google" id="engine">
+
+            <div class="row" align="center">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="input-group">
+                        <!-- Search Engine Dropdown -->
+                        <div class="input-group-btn">
+                            <button id="egbutton" type="button" class="btn btn-default dropdown-toggle" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-search"></span> Google <span class="caret"></span>
+                            </button>
+                        </div>
+
+                        <!-- Search Input -->
+                        <input type="text" name="query" id="query" class="form-control" 
+                               placeholder="Search anything">
+                        <span class="input-group-btn">
+                            <a href="#" onclick="startSearch();" class="btn btn-default black-background white">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function startSearch() {
+            const query = document.getElementById('query').value;
+            const fileType = document.getElementById('fileType').value;
+            const resType = document.getElementById('resType').value;
+            const engine = document.getElementById('engine').value;
+
+            let finalQuery = query + 
+                (fileType ? ` +(${fileType})` : '') + 
+                " -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of";
+            let url;
+
+            // Only Google search remains
+            url = `https://www.google.com/search?q=${encodeURIComponent(finalQuery)}`;
+
+            window.open(url, '_blank');
+        }
+
+        function openDropdown() {
+            document.getElementById('ddbutton').click();
+        }
+    </script>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
